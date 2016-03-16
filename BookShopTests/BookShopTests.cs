@@ -71,5 +71,23 @@ namespace BookShop.Tests
             //Assert
             Assert.AreEqual(expect, actual);
         }
+
+        [TestMethod()]
+        public void GetTotal_買哈利波特全套75折共375()
+        {
+            //Arrange
+            var target = new BookShop();
+            double expect = (100 + 100 + 100 + 100 + 100) * 0.75;
+            //Act
+            target.AddBookList(target.GetBook("哈利波特第一集"));
+            target.AddBookList(target.GetBook("哈利波特第二集"));
+            target.AddBookList(target.GetBook("哈利波特第三集"));
+            target.AddBookList(target.GetBook("哈利波特第四集"));
+            target.AddBookList(target.GetBook("哈利波特第五集"));
+            var actual = target.GetTotal();
+
+            //Assert
+            Assert.AreEqual(expect, actual);
+        }
     }
 }
