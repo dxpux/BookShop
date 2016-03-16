@@ -26,9 +26,41 @@ namespace BookShop
         public double GetTotal()
         {
             var total = (from book in Cart
-                     select book.Price).Sum();
+                         select book.Price).Sum();
 
-            return total;
+            double discount = GetDiscount();
+            return total - discount;
+        }
+        private double GetDiscount()
+        {
+            Dictionary<String, Int32> BookCount = new Dictionary<string, int>();
+            foreach (var book in Cart)
+            {
+                string name = book.Name;
+                if (BookCount.ContainsKey(name))
+                {
+                    //有值 +1
+                    BookCount[name] = BookCount[name] + 1;
+                }
+                else
+                {
+                    BookCount.Add(name, 1);
+                }
+            }
+
+            int buy2off = 0;
+            while ((from book in BookCount where book.Value > 0 select book).Count() == 2)
+            {
+                buy2off = buy2off + 1;
+
+                var restBook = (from book in BookCount where book.Value > 0 select book).ToList();
+                foreach (var book in restBook)
+                {
+                    BookCount[book.Key] = book.Value - 1;
+                }
+            }
+
+            return buy2off * 10;
         }
     }
 }
