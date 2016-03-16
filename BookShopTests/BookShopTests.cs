@@ -17,12 +17,11 @@ namespace BookShop.Tests
             var target = new BookShop();
             double expect = 100;
             //Act
-            target.AddBookList = target.GetBook("哈利波特第一集");
+            target.AddBookList(target.GetBook("哈利波特第一集"));
             var actual = target.GetTotal();
 
             //Assert
             Assert.AreEqual(expect, actual);
-
         }
     }
 }
