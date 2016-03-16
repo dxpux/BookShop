@@ -107,5 +107,24 @@ namespace BookShop.Tests
             //Assert
             Assert.AreEqual(expect, actual);
         }
+
+        [TestMethod()]
+        public void GetTotal_買哈利波特_壹x1_貮x2_參x2_共460()
+        {
+            //Arrange
+            var target = new BookShop();
+            double expect = (100 + 100 + 100) * 0.9
+                            + (100 + 100) * 0.95;
+            //Act
+            target.AddBookList(target.GetBook("哈利波特第一集"));
+            target.AddBookList(target.GetBook("哈利波特第二集"));
+            target.AddBookList(target.GetBook("哈利波特第二集"));
+            target.AddBookList(target.GetBook("哈利波特第三集"));
+            target.AddBookList(target.GetBook("哈利波特第三集"));
+            var actual = target.GetTotal();
+
+            //Assert
+            Assert.AreEqual(expect, actual);
+        }
     }
 }
