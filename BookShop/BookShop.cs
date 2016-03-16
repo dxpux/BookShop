@@ -47,56 +47,23 @@ namespace BookShop
                     BookCount.Add(name, 1);
                 }
             }
+            int[] buyOff = { 0, 0, 0, 0,};
 
-            int buy5off = 0;
-            while ((from book in BookCount where book.Value > 0 select book).Count() == 5)
+            for (int i = buyOff.Count(); i > -1; i--)
             {
-                buy5off = buy5off + 1;
-
-                var restBook = (from book in BookCount where book.Value > 0 select book).ToList();
-                foreach (var book in restBook)
+                while ((from book in BookCount where book.Value > 0 select book).Count() == i + 2)
                 {
-                    BookCount[book.Key] = book.Value - 1;
+                    buyOff[i] = buyOff[i] + 1;
+
+                    var restBook = (from book in BookCount where book.Value > 0 select book).ToList();
+                    foreach (var book in restBook)
+                    {
+                        BookCount[book.Key] = book.Value - 1;
+                    }
                 }
             }
 
-            int buy4off = 0;
-            while ((from book in BookCount where book.Value > 0 select book).Count() == 4)
-            {
-                buy4off = buy4off + 1;
-
-                var restBook = (from book in BookCount where book.Value > 0 select book).ToList();
-                foreach (var book in restBook)
-                {
-                    BookCount[book.Key] = book.Value - 1;
-                }
-            }
-
-            int buy3off = 0;
-            while ((from book in BookCount where book.Value > 0 select book).Count() == 3)
-            {
-                buy3off = buy3off + 1;
-
-                var restBook = (from book in BookCount where book.Value > 0 select book).ToList();
-                foreach (var book in restBook)
-                {
-                    BookCount[book.Key] = book.Value - 1;
-                }
-            }
-
-            int buy2off = 0;
-            while ((from book in BookCount where book.Value > 0 select book).Count() == 2)
-            {
-                buy2off = buy2off + 1;
-
-                var restBook = (from book in BookCount where book.Value > 0 select book).ToList();
-                foreach (var book in restBook)
-                {
-                    BookCount[book.Key] = book.Value - 1;
-                }
-            }
-
-            return buy2off * 10 + buy3off * 30 + buy4off * 80 + buy5off * 125;
+            return buyOff[0] * 10 + buyOff[1] * 30 + buyOff[2] * 80 + buyOff[3] * 125;
         }
     }
 }
