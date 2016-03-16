@@ -7,5 +7,9 @@ namespace BookShop
 {
     public class BookShop
     {
+        public BookShop()
+        {
+
+        }
     }
 }
