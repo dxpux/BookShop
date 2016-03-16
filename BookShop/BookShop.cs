@@ -48,6 +48,18 @@ namespace BookShop
                 }
             }
 
+            int buy4off = 0;
+            while ((from book in BookCount where book.Value > 0 select book).Count() == 4)
+            {
+                buy4off = buy4off + 1;
+
+                var restBook = (from book in BookCount where book.Value > 0 select book).ToList();
+                foreach (var book in restBook)
+                {
+                    BookCount[book.Key] = book.Value - 1;
+                }
+            }
+
             int buy3off = 0;
             while ((from book in BookCount where book.Value > 0 select book).Count() == 3)
             {
@@ -72,7 +84,7 @@ namespace BookShop
                 }
             }
 
-            return buy2off * 10 + buy3off * 30;
+            return buy2off * 10 + buy3off * 30 + buy4off * 80;
         }
     }
 }
